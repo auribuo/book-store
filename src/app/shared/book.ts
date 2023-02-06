@@ -1,4 +1,4 @@
-import { Thumbnail } from './thumbnail';
+import {Thumbnail} from './thumbnail';
 
 export class Book {
   constructor(
@@ -10,5 +10,7 @@ export class Book {
     public rating?: number,
     public thumbnails?: Thumbnail[],
     public description?: string
-  ) { }
+  ) {
+
+  }
 }

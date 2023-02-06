@@ -1,1 +1,225 @@
-<p>book-store-service-test works!</p>
+<div fxFlex fxLayout="column">
+  <div fxFlex fxLayout="column">
+    <div fxFlex fxLayout="row" class="line-container">
+      <div fxFlex class="tag-container">
+        <div class="tag tag-delete">
+          <span class="tag-text">
+            DELETE
+          </span>
+        </div>
+      </div>
+      <div fxFlex>
+        /books
+      </div>
+      <div fxFlex>
+      </div>
+      <div fxFlex class="btn-container">
+        <button class="btn btn-delete" (click)="handleResetBookStoreButtonClicked()">Resets store to initial state
+        </button>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" class="line-container">
+      <div fxFlex class="tag-container">
+        <div class="tag tag-get">
+          <span class="tag-text">
+            GET
+          </span>
+        </div>
+      </div>
+      <div fxFlex>
+        /books
+      </div>
+      <div fxFlex>
+      </div>
+      <div fxFlex class="btn-container">
+        <button class="btn btn-get" (click)="handleGetAllBooksButtonClicked()">Get all books</button>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" class="line-container">
+      <div fxFlex class="tag-container">
+        <div class="tag tag-get">
+          <span class="tag-text">
+            GET
+          </span>
+        </div>
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px">
+        /books/{{"{"}}searchTerm{{"}"}}
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px">
+        <mat-form-field>
+          <mat-label>Search term</mat-label>
+          <input matInput type="text" #get_book_search_term>
+        </mat-form-field>
+      </div>
+      <div fxFlex class="btn-container">
+        <button class="btn btn-get" (click)="handleGetSearchTermBooks(get_book_search_term.value)">
+          Get all books matching the search term
+        </button>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" class="line-container">
+      <div fxFlex class="tag-container">
+        <div class="tag tag-post">
+          <span class="tag-text">
+            POST
+          </span>
+        </div>
+      </div>
+      <div fxFlex>
+        /book
+      </div>
+      <div fxFlex>
+      </div>
+      <div fxFlex fxLayout="column" class="btn-container">
+        <button class="btn btn-post" (click)="handleCreateRandomBook()">Creates a new (random) book</button>
+        <button class="btn btn-post" (click)="handleCreateRandomBookAgain()" [disabled]="randomBook == null">
+          Creates a new (random) book with the same isbn
+        </button>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" class="line-container">
+      <div fxFlex class="tag-container">
+        <div class="tag tag-delete">
+          <span class="tag-text">
+            DELETE
+          </span>
+        </div>
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px">
+        /book/{{"{"}}isbn{{"}"}}
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px">
+        <mat-form-field>
+          <mat-label>ISBN</mat-label>
+          <input matInput type="text" #delete_book_isbn>
+        </mat-form-field>
+      </div>
+      <div fxFlex class="btn-container">
+        <button class="btn btn-delete" (click)="handleDeleteBook(delete_book_isbn.value)">
+          Deletes a book
+        </button>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" class="line-container">
+      <div fxFlex class="tag-container">
+        <div class="tag tag-get">
+          <span class="tag-text">
+            GET
+          </span>
+        </div>
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px">
+        /book/{{"{"}}isbn{{"}"}}
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px">
+        <mat-form-field>
+          <mat-label>ISBN</mat-label>
+          <input matInput type="text" #get_book_isbn>
+        </mat-form-field>
+      </div>
+      <div fxFlex class="btn-container">
+        <button class="btn btn-get" (click)="handleGetBook(get_book_isbn.value)">Returns a single book by ISBN</button>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" class="line-container">
+      <div fxFlex>
+        <div class="tag-container">
+          <div class="tag tag-put">
+            <span class="tag-text">
+              PUT
+            </span>
+          </div>
+        </div>
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px">
+        /book/{{"{"}}isbn{{"}"}}
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px">
+        <mat-form-field>
+          <mat-label>ISBN</mat-label>
+          <input matInput type="text" #update_book_isbn>
+        </mat-form-field>
+      </div>
+      <div fxFlex class="btn-container">
+        <button class="btn btn-put" (click)="handleUpdateBook(update_book_isbn.value)">Updates an existing book</button>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" class="line-container">
+      <div fxFlex>
+        <div class="tag-container">
+          <div class="tag tag-get">
+            <span class="tag-text">
+              GET
+            </span>
+          </div>
+        </div>
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px">
+        /book/{{"{"}}isbn{{"}"}}/check
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px">
+        <mat-form-field>
+          <mat-label>ISBN</mat-label>
+          <input matInput type="text" #check_book_isbn>
+        </mat-form-field>
+      </div>
+      <div fxFlex class="btn-container">
+        <button class="btn btn-get" (click)="handleCheckBook(check_book_isbn.value)">
+          Returns whether a book exists or not
+        </button>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" class="line-container">
+      <div fxFlex>
+        <div class="tag-container">
+          <div class="tag tag-post">
+            <span class="tag-text">
+              POST
+            </span>
+          </div>
+        </div>
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px">
+        /book/{{"{"}}isbn{{"}"}}/rate
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px">
+        <mat-form-field>
+          <mat-label>ISBN</mat-label>
+          <input matInput type="text" #rate_book_isbn>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Rating</mat-label>
+          <input matInput type="number" #rate_book_rating min="1" max="5" step="1">
+        </mat-form-field>
+      </div>
+      <div fxFlex class="btn-container">
+        <button class="btn btn-post" (click)="handleRateBook(rate_book_isbn.value, rate_book_rating.value)">
+          Updates rating of a book to a given value
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div fxFlex class="response-container">
+    <div *ngIf="result">
+      <div class="response-status">
+        Request status: {{result.statusText}} ({{result.status}})
+      </div>
+
+      <div *ngIf="result.ok; else error_template">
+        <div>
+          {{dataString}}
+        </div>
+        <div *ngFor="let res of data">
+          <div><b>Titel:</b> {{res.title}} <b>ISBN:</b> {{res.isbn}} <b>Autoren:</b> {{stringifyAuthors(res.authors)}}
+            <b>Bewertung:</b> {{res.rating}}</div>
+        </div>
+      </div>
+
+      <ng-template #error_template>
+        <div>{{error}}</div>£
+      </ng-template>
+    </div>
+  </div>
+</div>

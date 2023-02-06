@@ -1,44 +1,113 @@
-import {Injectable} from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import {Book} from "./book";
+import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
 
 @Injectable()
 export class BookService {
-  private books: Book[] = [];
 
-  constructor() {}
-
-  public resetStore() {
-    this.books = [];
+  constructor(@Inject("apiUrl") private apiUrl: string, private http: HttpClient) {
   }
 
-  public getAllBooks(): Book[] {
-    return this.books;
+  private path(path: string): string {
+    return this.apiUrl + path;
   }
 
-  public getAllBooksSearchTerm(searchTerm: string): Book[] {
-    return this.books.filter(book => book.title.toLowerCase().includes(searchTerm.toLowerCase()));
+  public async resetStore(): Promise<HttpResponse<string> | HttpErrorResponse> {
+    try {
+      return await this.http.delete(this.path("/books"), {
+        observe: 'response',
+        responseType: 'text'
+      }).toPromise();
+    } catch (e) {
+      return e as HttpErrorResponse
+    }
   }
 
-  public createBook(book: Book) {
-    this.books.push(book);
+  public async getAllBooks(): Promise<HttpResponse<Book[]> | HttpErrorResponse> {
+    try {
+      return await this.http.get<Book[]>(this.path("/books"), {
+        observe: 'response',
+        responseType: 'json'
+      }).toPromise()
+    } catch (e) {
+      return e as HttpErrorResponse
+    }
   }
 
-  public getBook(isbn: string): Book | undefined {
-    return this.books.find(book => book.isbn === isbn);
+  public async getAllBooksSearchTerm(searchTerm: string): Promise<HttpResponse<Book[]> | HttpErrorResponse> {
+    try {
+      return await this.http.get<Book[]>(this.path("/books/search/" + searchTerm), {
+        observe: 'response',
+        responseType: 'json',
+      }).toPromise()
+    } catch (e) {
+      return e as HttpErrorResponse
+    }
   }
 
-  public deleteBook(isbn: string) {
-    this.books = this.books.filter(book => book.isbn !== isbn);
+  public async createBook(book: Book): Promise<HttpResponse<string> | HttpErrorResponse> {
+    try {
+      return await this.http.post(this.path("/book"), book, {
+        observe: 'response',
+        responseType: 'text'
+      }).toPromise()
+    } catch (e) {
+      return e as HttpErrorResponse
+    }
   }
 
-  public checkBook(isbn: string): boolean {
-    return this.books.some(book => book.isbn === isbn);
+  public async getBook(isbn: string): Promise<HttpResponse<Book> | HttpErrorResponse> {
+    try {
+      return await this.http.get<Book>(this.path("/book/" + isbn), {
+        observe: 'response',
+        responseType: 'json'
+      }).toPromise()
+    } catch (e) {
+      return e as HttpErrorResponse
+    }
   }
 
-  public rateBook(isbn: string, rating: number) {
-    const book = this.getBook(isbn);
-    if (book) {
-      book.rating = rating;
+  public async deleteBook(isbn: string): Promise<HttpResponse<string> | HttpErrorResponse> {
+    try {
+      return await this.http.delete(this.path("/book/" + isbn), {
+        observe: 'response',
+        responseType: 'text'
+      }).toPromise()
+    } catch (e) {
+      return e as HttpErrorResponse
+    }
+  }
+
+  public async updateBook(isbn: string, book: Book): Promise<HttpResponse<string> | HttpErrorResponse> {
+    try {
+      return await this.http.put(this.path("/book/" + isbn), book, {
+        observe: 'response',
+        responseType: 'text'
+      }).toPromise()
+    } catch (e) {
+      return e as HttpErrorResponse
+    }
+  }
+
+  public async checkBook(isbn: string): Promise<HttpResponse<string> | HttpErrorResponse> {
+    try {
+      return await this.http.get(this.path("/book/" + isbn + "/check"), {
+        observe: 'response',
+        responseType: 'text',
+      }).toPromise()
+    } catch (e) {
+      return e as HttpErrorResponse
+    }
+  }
+
+  public async rateBook(isbn: string, rating: number): Promise<HttpResponse<string> | HttpErrorResponse> {
+    try {
+      return await this.http.post(this.path("/book/" + isbn + "/rate"), {rating}, {
+        observe: 'response',
+        responseType: 'text'
+      }).toPromise()
+    } catch (e) {
+      return e as HttpErrorResponse
     }
   }
 }

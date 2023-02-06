@@ -1,0 +1,119 @@
+.line-container {
+  border: lightgray 1px solid;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.tag-container {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: max-content;
+}
+
+.tag {
+  padding: 2px;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: 600;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  width: 100px;
+}
+
+.tag-text {
+  margin: auto;
+  text-align: center;
+}
+
+.tag-delete {
+  background: rgb(249, 62, 62);
+}
+
+.tag-get {
+  background: rgb(97, 175, 254);
+}
+
+.tag-post {
+  background: rgb(73, 204, 144);
+}
+
+.tag-put {
+  background: rgb(252, 161, 48);
+}
+
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  color: grey;
+}
+
+.btn:disabled:hover {
+  background: white;
+  color: grey;
+}
+
+.btn-delete {
+  border: rgb(249, 62, 62) 1px solid;
+  background: white;
+}
+
+.btn-delete:hover {
+  background: rgb(249, 62, 62);
+  color: white;
+}
+
+.btn-get {
+  border: rgb(97, 175, 254) 1px solid;
+  background: white;
+}
+
+.btn-get:hover {
+  background: rgb(97, 175, 254);
+  color: white;
+}
+
+.btn-post {
+  border: rgb(73, 204, 144) 1px solid;
+  background: white;
+}
+
+.btn-post:hover {
+  background: rgb(73, 204, 144);
+  color: white;
+}
+
+.btn-put {
+  border: rgb(252, 161, 48) 1px solid;
+  background: white;
+}
+
+.btn-put:hover {
+  background: rgb(252, 161, 48);
+  color: white;
+}
+
+.response-container {
+  margin: 20px 10px;
+  padding: 5px;
+}
+
+.response-status {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 10px 0;
+}
